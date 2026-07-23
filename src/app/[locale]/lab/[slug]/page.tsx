@@ -1,19 +1,18 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getLesson, lessonDefinitions } from "@/content/lessons";
-import { LessonShell } from "@/components/lab/lesson-shell";
-import { HierarchyWireframe } from "@/components/lab/hierarchy-wireframe";
-import { TypeScaleChart } from "@/components/lab/type-scale-chart";
-import { HierarchyDiagram } from "@/components/lab/hierarchy-diagram";
-import { RulesList } from "@/components/lab/rules-list";
-import { References } from "@/components/lab/references";
-import { Card, CardBody } from "@/components/ui/card";
+import { TypeHierarchyLesson } from "@/components/lessons/type-hierarchy-lesson";
 import { isLocale, locales, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
 
 type PageProps = {
   params: Promise<{ locale: string; slug: string }>;
 };
+
+/** Map ready lesson slugs → page compositions (keep routes thin). */
+const lessonComponents = {
+  "type-hierarchy": TypeHierarchyLesson,
+} as const;
 
 export function generateStaticParams() {
   const ready = lessonDefinitions.filter((lesson) => lesson.status === "ready");
@@ -45,88 +44,12 @@ export default async function LessonPage({ params }: PageProps) {
     notFound();
   }
 
-  if (slug === "type-hierarchy") {
-    const t = dict.typeHierarchy;
-    return (
-      <LessonShell lesson={lesson} designSystemLabel={dict.common.designSystemApplied}>
-        <div className="space-y-8">
-          <section className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="space-y-4">
-              <h2 className="font-serif text-lg font-semibold tracking-tight">
-                {t.theory}
-              </h2>
-              <div
-                className="space-y-3 text-sm text-muted-foreground"
-                style={{ lineHeight: "var(--leading-relaxed)" }}
-              >
-                <p className="text-foreground ste-rule">{t.lead}</p>
-                <p>{t.p1}</p>
-                <p>{t.p2}</p>
-              </div>
-              <RulesList title={t.rulesTitle} rules={[...t.rules]} />
-            </div>
-            <div className="space-y-4">
-              <h2 className="font-serif text-lg font-semibold tracking-tight">
-                {t.tokensTitle}
-              </h2>
-              <TypeScaleChart
-                title={t.chartTitle}
-                subtitle={t.chartSubtitle}
-                sizeLabel={t.chartSize}
-              />
-              <HierarchyDiagram
-                title={t.diagramTitle}
-                subtitle={t.diagramSubtitle}
-                loadingLabel={dict.common.loadingDiagram}
-                errorLabel={dict.common.diagramError}
-                nodes={t.diagramNodes}
-              />
-            </div>
-          </section>
+  const Lesson =
+    lessonComponents[slug as keyof typeof lessonComponents] ?? null;
 
-          <HierarchyWireframe
-            sectionTitle={t.wireframe.title}
-            sectionHint={t.wireframe.hint}
-            badLabel={t.weak}
-            goodLabel={t.clear}
-            badgeBad={dict.common.bad}
-            badgeGood={dict.common.good}
-            viewportLabels={{
-              desktop: t.wireframe.desktop,
-              tablet: t.wireframe.tablet,
-              mobile: t.wireframe.mobile,
-            }}
-            copy={{
-              title: t.wireframe.screenTitle,
-              subtitle: t.wireframe.screenSubtitle,
-              nav: t.wireframe.nav,
-              heroTitle: t.wireframe.heroTitle,
-              heroBody: t.wireframe.heroBody,
-              cta: t.wireframe.cta,
-              cards: t.wireframe.cards,
-              notesBad: t.wireframe.notesBad,
-              notesGood: t.wireframe.notesGood,
-            }}
-          />
-
-          <section>
-            <Card className="bg-accent-soft/40">
-              <CardBody className="space-y-2">
-                <p className="text-sm font-medium text-foreground">{t.appliedTitle}</p>
-                <ul className="list-disc space-y-1 pl-5 text-sm text-muted-foreground">
-                  {t.applied.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </CardBody>
-            </Card>
-          </section>
-
-          <References title={t.referencesTitle} items={t.references} />
-        </div>
-      </LessonShell>
-    );
+  if (!Lesson) {
+    notFound();
   }
 
-  notFound();
+  return <Lesson lesson={lesson} dict={dict} />;
 }

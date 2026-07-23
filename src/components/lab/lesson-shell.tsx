@@ -1,4 +1,6 @@
 import { Badge } from "@/components/ui/badge";
+import { Heading } from "@/components/ui/heading";
+import { Text } from "@/components/ui/text";
 import type { LocalizedLesson } from "@/content/lessons";
 
 export function LessonShell({
@@ -19,21 +21,10 @@ export function LessonShell({
           </Badge>
           <Badge variant="muted">{designSystemLabel}</Badge>
         </div>
-        <h1
-          className="font-serif text-3xl font-semibold tracking-tight text-foreground md:text-[2.25rem]"
-          style={{
-            lineHeight: "var(--leading-tight)",
-            letterSpacing: "-0.02em",
-          }}
-        >
-          {lesson.title}
-        </h1>
-        <p
-          className="mt-3 max-w-xl text-md text-muted-foreground"
-          style={{ lineHeight: "var(--leading-relaxed)" }}
-        >
+        <Heading level={1}>{lesson.title}</Heading>
+        <Text size="md" tone="muted" className="mt-3 max-w-xl">
           {lesson.summary}
-        </p>
+        </Text>
       </header>
       {children}
     </article>

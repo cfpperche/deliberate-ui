@@ -9,9 +9,26 @@ Instructions for AI coding agents (Claude Code, OpenAI Codex, Grok Build, Cursor
 Goals:
 
 1. Teach one UI idea per lesson with theory + live demos.
-2. Apply the same design rules to the site chrome (living design system).
+2. Apply the same design rules to the site chrome (**living design system**).
 3. Keep a sober, elegant **light** theme.
 4. Use **Simplified Technical English (ASD-STE100)** for technical copy (see `docs/STE100.md`).
+5. Keep the codebase **componentized** so each new technique reshapes the product UI.
+
+## Core principle: the site transforms as the lab advances
+
+This is a **dogfooding** product. Techniques taught in a lesson must land as reusable building blocks used by the site itself.
+
+| When the lesson teaches… | Extract / evolve… | Apply to… |
+|--------------------------|-------------------|-----------|
+| Type hierarchy | `Heading`, `Text`, type tokens | Home, lab chrome, all lessons |
+| Type scale | tokens in `globals.css`, Text/Heading sizes | Entire UI |
+| Color / contrast | semantic color tokens, Badge tones | Demos + chrome |
+| Buttons / actions | `Button`, `LinkButton` variants | CTAs site-wide |
+| Grid / spacing | space tokens, layout primitives | Shells and sections |
+| Forms | Input, Label, Field | Future interactive demos |
+| Gestalt / layout | composition components | Lesson grids and home |
+
+**Rule:** Prefer improving a shared component or token over one-off styles inside a single page.
 
 ## What this project is not
 
@@ -19,6 +36,7 @@ Goals:
 - Do **not** add dark theme unless the user explicitly requests it.
 - Do **not** add auth, billing, or student accounts without an explicit request.
 - Do **not** invent new core dependencies when an existing allowed library covers the need.
+- Do **not** dump large JSX trees in route files (`page.tsx`). Routes resolve data; **components compose UI**.
 
 ## Stack (required)
 
@@ -26,7 +44,9 @@ Goals:
 |-------|--------|
 | Framework | Next.js App Router + TypeScript |
 | Styling | Tailwind CSS v4 + CSS variables in `src/app/globals.css` |
-| UI primitives | Local components in `src/components/ui` (shadcn-style) |
+| UI primitives | `src/components/ui/*` (shared, living design system) |
+| Lab chrome / demos | `src/components/lab/*` |
+| Lesson compositions | `src/components/lessons/*` |
 | Icons | `lucide-react` |
 | Animation | `motion` (`motion/react`) |
 | Charts | `recharts` |
@@ -43,6 +63,34 @@ Goals:
 
 Add a new dependency only if no allowed library fits, and document it in the PR/commit message.
 
+## Component architecture (required)
+
+```
+src/components/
+  ui/          # Design-system primitives used everywhere
+               # Heading, Text, Button, LinkButton, Badge, Card, …
+  lab/         # Lab shell + reusable lesson building blocks
+               # LessonShell, LessonSection, RulesList, References,
+               # AppliedPanel, Sidebar, demos (wireframes, charts, …)
+  lessons/     # One composition per ready lesson
+               # type-hierarchy-lesson.tsx, …
+  i18n/        # Language switcher, document lang
+```
+
+### Layer rules
+
+1. **`ui/`** — product design system. No lesson-specific copy. Token-driven. Stable API.
+2. **`lab/`** — instructional chrome and demos. Accept copy via props. Reusable across lessons.
+3. **`lessons/`** — full lesson layout for one slug. Imports `ui/` + `lab/`. Owns lesson structure.
+4. **`app/[locale]/…/page.tsx`** — fetch locale/dict/lesson, pick composition, return it. **Thin routes.**
+
+### Anti-patterns
+
+- Hardcoded hex or random `text-[13px]` when a token/role exists
+- Duplicating Bad/Good cards instead of a shared compare/demo component
+- Putting wireframes, charts, or theory blocks inline in `page.tsx`
+- Creating a new one-off component that should be a `ui/` variant
+
 ## Design system
 
 Tokens live in `src/app/globals.css` (`:root`).
@@ -53,7 +101,11 @@ Tokens live in `src/app/globals.css` (`:root`).
 - Spacing: 8pt rhythm (`--space-*`)
 - Semantic: `--good` / `--bad` for demo contrast
 
-When a lesson defines a visual rule, **apply it to the site** (tokens, layout, or component) in the same change when practical.
+When a lesson defines a visual rule:
+
+1. Encode it as a **token** and/or **`ui/` primitive** (or extend an existing one).
+2. **Migrate** existing screens to use that primitive in the same change when practical.
+3. Document the migration in the lesson **AppliedPanel** (`Applied on this site` / `Aplicado neste site`).
 
 ## Content rules (STE100)
 
@@ -92,26 +144,30 @@ Every ready lesson page must include **at least 3 bibliographic references** rel
 
 ```
 src/
-  app/[locale]/        # localized routes (home, lab/[slug])
-  middleware.ts        # locale redirect + cookie
-  i18n/                # config + dictionaries (en, pt)
+  app/[locale]/              # thin localized routes
+  middleware.ts
+  i18n/                      # config + dictionaries
   components/
-    lab/               # lesson chrome + demos
-    i18n/              # language switcher
-    ui/                # reusable primitives
-  content/lessons.ts   # structural curriculum index
-  lib/utils.ts         # cn() helper
+    ui/                      # living design system primitives
+    lab/                     # lesson chrome + demos
+    lessons/                 # per-lesson compositions
+    i18n/
+  content/lessons.ts         # structural curriculum index
+  lib/utils.ts
 docs/STE100.md
 AGENTS.md
 ```
 
 ## How to add a lesson
 
-1. Add an entry in `src/content/lessons.ts` with `status: "ready"` when shipping UI.
-2. Implement the lesson branch (or dedicated component) under `src/app/lab/[slug]/page.tsx` or `src/components/lab/`.
-3. Include: short theory (STE100 rules), at least one visual demo (chart, diagram, or interactive compare), and a note of what the site now applies.
-4. Keep the sidebar working via `lessons` data only — do not hardcode nav items.
-5. Run `pnpm lint` and `pnpm build` before finishing.
+1. Add structural entry in `src/content/lessons.ts` (`status: "ready"` when shipping).
+2. Add full copy (EN + PT), including `references` (≥ 3) and `applied` notes.
+3. Build demos as **`lab/`** components; build page as **`lessons/<slug>-lesson.tsx`**.
+4. Register the composition in `src/app/[locale]/lab/[slug]/page.tsx` (`lessonComponents` map).
+5. If the lesson introduces a technique, **extract or upgrade a `ui/` primitive/token** and use it on home + lab chrome.
+6. Include: theory (STE100), visual demo (wireframe/chart/diagram/compare), AppliedPanel, References.
+7. Sidebar stays data-driven from `lessons` — do not hardcode nav items.
+8. Run `pnpm lint` and `pnpm build` before finishing.
 
 ## Commands
 
@@ -128,8 +184,8 @@ pnpm start
 - TypeScript strict; avoid `any`.
 - Server Components by default; add `"use client"` only for interactivity (charts, motion, mermaid, nav active state).
 - Prefer existing tokens and `cn()` over one-off magic values.
-- Keep components focused; colocate demo components under `src/components/lab/`.
-- English for code, file names, and STE100 lesson rules. UI chrome may stay English unless the user asks for another language.
+- English for code and file names. UI strings via dictionaries.
+- File names: kebab-case. Components: PascalCase exports.
 
 ## Git
 
@@ -141,6 +197,10 @@ pnpm start
 
 - [ ] Lesson or feature works in `pnpm dev`
 - [ ] `pnpm lint` and `pnpm build` pass
-- [ ] Design tokens used; no random off-system colors/sizes without reason
+- [ ] UI is componentized (`ui` / `lab` / `lessons`); route files stay thin
+- [ ] New technique is reflected in shared tokens or `ui/` primitives when applicable
+- [ ] AppliedPanel lists what the site now uses
+- [ ] ≥ 3 real bibliographic references
+- [ ] EN + PT dictionary keys updated together
 - [ ] Technical copy follows STE100 where applicable
 - [ ] No copyrighted course content reproduced

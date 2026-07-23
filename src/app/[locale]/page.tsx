@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { ArrowRight, BookOpen, Layers, Sparkles } from "lucide-react";
 import { notFound } from "next/navigation";
 import {
@@ -8,6 +7,9 @@ import {
 } from "@/content/lessons";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardBody } from "@/components/ui/card";
+import { Heading } from "@/components/ui/heading";
+import { Text } from "@/components/ui/text";
+import { LinkButton } from "@/components/ui/link-button";
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 import { isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
@@ -55,18 +57,19 @@ export default async function HomePage({ params }: PageProps) {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent text-accent-foreground">
               <BookOpen className="h-4 w-4" aria-hidden />
             </div>
-            <span className="text-sm font-semibold tracking-tight">
+            <Text as="span" size="sm" weight="semibold" className="tracking-tight">
               {dict.common.brand}
-            </span>
+            </Text>
           </div>
           <div className="flex items-center gap-3">
             <LanguageSwitcher locale={locale} />
-            <Link
+            <LinkButton
               href={localePath(locale, "/lab/type-hierarchy")}
-              className="text-sm font-medium text-accent hover:underline"
+              variant="ghost"
+              size="sm"
             >
               {dict.common.openLab}
-            </Link>
+            </LinkButton>
           </div>
         </div>
       </header>
@@ -76,54 +79,51 @@ export default async function HomePage({ params }: PageProps) {
           <Badge variant="accent" className="mb-4">
             {dict.home.badge}
           </Badge>
-          <h1
-            className="font-serif text-4xl font-semibold tracking-tight text-foreground md:text-5xl"
-            style={{ lineHeight: 1.15, letterSpacing: "-0.025em" }}
-          >
+          <Heading level={1} className="md:text-5xl">
             {dict.home.title}
-          </h1>
-          <p
-            className="mt-5 max-w-xl text-md text-muted-foreground"
-            style={{ lineHeight: "var(--leading-relaxed)" }}
-          >
+          </Heading>
+          <Text size="md" tone="muted" className="mt-5 max-w-xl">
             {dict.home.lead}
-          </p>
+          </Text>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link
-              href={localePath(locale, "/lab/type-hierarchy")}
-              className="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2.5 text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90"
-            >
+            <LinkButton href={localePath(locale, "/lab/type-hierarchy")}>
               {dict.home.startLesson}
               <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
-            <a
+            </LinkButton>
+            <LinkButton
               href="https://github.com/cfpperche/deliberate-ui"
-              className="inline-flex items-center gap-2 rounded-md border border-border bg-surface px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-surface-muted"
-              target="_blank"
-              rel="noopener noreferrer"
+              variant="secondary"
+              external
             >
               {dict.common.github}
-            </a>
+            </LinkButton>
           </div>
         </div>
 
         <div className="mt-16 grid gap-4 md:grid-cols-3">
           {dict.home.features.map((feature, index) => (
-            <Feature
-              key={feature.title}
-              icon={featureIcons[index]}
-              title={feature.title}
-              body={feature.body}
-            />
+            <Card key={feature.title}>
+              <CardBody className="space-y-3">
+                <div className="flex h-8 w-8 items-center justify-center rounded-md bg-accent-soft text-accent">
+                  {featureIcons[index]}
+                </div>
+                <Heading level={4} as="h3">
+                  {feature.title}
+                </Heading>
+                <Text size="sm" tone="muted">
+                  {feature.body}
+                </Text>
+              </CardBody>
+            </Card>
           ))}
         </div>
 
         <section id="curriculum" className="mt-16 scroll-mt-20">
           <div className="mb-4 flex items-end justify-between gap-4">
-            <h2 className="font-serif text-xl font-semibold tracking-tight">
-              {dict.home.curriculumTitle}
-            </h2>
-            <p className="text-xs text-muted-foreground">{stats}</p>
+            <Heading level={2}>{dict.home.curriculumTitle}</Heading>
+            <Text size="xs" tone="muted">
+              {stats}
+            </Text>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
             {lessons.map((lesson) => (
@@ -133,23 +133,25 @@ export default async function HomePage({ params }: PageProps) {
               >
                 <CardBody className="flex items-start justify-between gap-3 py-4">
                   <div>
-                    <p className="text-xs font-medium text-muted-foreground">
+                    <Text size="xs" tone="muted" weight="medium">
                       {lesson.lessonIndex} · {lesson.module}
-                    </p>
-                    <p className="mt-1 text-sm font-medium text-foreground">
+                    </Text>
+                    <Text size="sm" weight="medium" className="mt-1">
                       {lesson.title}
-                    </p>
-                    <p className="mt-1 text-xs text-muted-foreground">
+                    </Text>
+                    <Text size="xs" tone="muted" className="mt-1">
                       {lesson.summary}
-                    </p>
+                    </Text>
                   </div>
                   {lesson.status === "ready" ? (
-                    <Link
+                    <LinkButton
                       href={localePath(locale, `/lab/${lesson.slug}`)}
-                      className="shrink-0 text-xs font-medium text-accent hover:underline"
+                      variant="ghost"
+                      size="sm"
+                      className="shrink-0 px-0"
                     >
                       {dict.common.open}
-                    </Link>
+                    </LinkButton>
                   ) : (
                     <Badge variant="muted">{dict.common.soon}</Badge>
                   )}
@@ -161,37 +163,12 @@ export default async function HomePage({ params }: PageProps) {
       </main>
 
       <footer className="border-t border-border py-8">
-        <div className="mx-auto max-w-5xl px-6 text-xs text-muted-foreground">
-          {dict.home.footer}
+        <div className="mx-auto max-w-5xl px-6">
+          <Text size="xs" tone="muted">
+            {dict.home.footer}
+          </Text>
         </div>
       </footer>
     </div>
-  );
-}
-
-function Feature({
-  icon,
-  title,
-  body,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  body: string;
-}) {
-  return (
-    <Card>
-      <CardBody className="space-y-3">
-        <div className="flex h-8 w-8 items-center justify-center rounded-md bg-accent-soft text-accent">
-          {icon}
-        </div>
-        <h3 className="text-sm font-semibold text-foreground">{title}</h3>
-        <p
-          className="text-sm text-muted-foreground"
-          style={{ lineHeight: "var(--leading-relaxed)" }}
-        >
-          {body}
-        </p>
-      </CardBody>
-    </Card>
   );
 }
