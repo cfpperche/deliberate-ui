@@ -3,28 +3,36 @@ import { RulesList } from "@/components/lab/rules-list";
 import { References } from "@/components/lab/references";
 import { AppliedPanel } from "@/components/lab/applied-panel";
 import { LessonSection } from "@/components/lab/lesson-section";
-import { ButtonsActionsDemo } from "@/components/lab/buttons-actions-demo";
 import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import type { LocalizedLesson } from "@/content/lessons";
 import type { Dictionary } from "@/i18n/dictionaries/types";
-import type { Locale } from "@/i18n/config";
+import type { ReferenceItem } from "@/components/lab/references";
 
-/**
- * Lesson 3.1 — Buttons and actions.
- * Primary demo: action hierarchy Bad/Good + living Button variants.
- */
-export function ButtonsActionsLesson({
+type LessonCopy = {
+  theory: string;
+  lead: string;
+  p1: string;
+  p2: string;
+  rulesTitle: string;
+  rules: string[];
+  appliedTitle: string;
+  applied: string[];
+  referencesTitle: string;
+  references: ReferenceItem[];
+};
+
+export function LessonFrame({
   lesson,
   dict,
-  locale: _locale,
+  copy,
+  demo,
 }: {
   lesson: LocalizedLesson;
   dict: Dictionary;
-  locale: Locale;
+  copy: LessonCopy;
+  demo: React.ReactNode;
 }) {
-  const t = dict.buttonsActions;
-
   return (
     <LessonShell
       lesson={lesson}
@@ -34,37 +42,25 @@ export function ButtonsActionsLesson({
         <LessonSection>
           <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
             <div className="space-y-4">
-              <Heading level={2}>{t.theory}</Heading>
+              <Heading level={2}>{copy.theory}</Heading>
               <div className="space-y-3">
-                <Text className="ste-rule">{t.lead}</Text>
+                <Text className="ste-rule">{copy.lead}</Text>
                 <Text size="sm" tone="muted">
-                  {t.p1}
+                  {copy.p1}
                 </Text>
                 <Text size="sm" tone="muted">
-                  {t.p2}
+                  {copy.p2}
                 </Text>
               </div>
             </div>
-            <RulesList title={t.rulesTitle} rules={[...t.rules]} />
+            <RulesList title={copy.rulesTitle} rules={[...copy.rules]} />
           </div>
         </LessonSection>
 
-        <ButtonsActionsDemo
-          title={t.demo.title}
-          hint={t.demo.hint}
-          badLabel={t.demo.badLabel}
-          goodLabel={t.demo.goodLabel}
-          badgeBad={dict.common.bad}
-          badgeGood={dict.common.good}
-          variantsTitle={t.demo.variantsTitle}
-          notesBad={[...t.demo.notesBad]}
-          notesGood={[...t.demo.notesGood]}
-          copy={t.demo.copy}
-        />
+        {demo}
 
-        <AppliedPanel title={t.appliedTitle} items={[...t.applied]} />
-
-        <References title={t.referencesTitle} items={t.references} />
+        <AppliedPanel title={copy.appliedTitle} items={[...copy.applied]} />
+        <References title={copy.referencesTitle} items={copy.references} />
       </div>
     </LessonShell>
   );

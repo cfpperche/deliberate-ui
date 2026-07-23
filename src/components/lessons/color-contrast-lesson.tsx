@@ -8,6 +8,7 @@ import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import type { LocalizedLesson } from "@/content/lessons";
 import type { Dictionary } from "@/i18n/dictionaries/types";
+import type { Locale } from "@/i18n/config";
 
 /**
  * Lesson 2.1 — Color and contrast.
@@ -16,9 +17,11 @@ import type { Dictionary } from "@/i18n/dictionaries/types";
 export function ColorContrastLesson({
   lesson,
   dict,
+  locale: _locale,
 }: {
   lesson: LocalizedLesson;
   dict: Dictionary;
+  locale: Locale;
 }) {
   const t = dict.colorContrast;
 

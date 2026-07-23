@@ -226,5 +226,219 @@ export type Dictionary = {
       url?: string;
       note?: string;
     }[];
+  },
+
+  welcome: {
+    theory: string;
+    lead: string;
+    p1: string;
+    p2: string;
+    pathTitle: string;
+    path: string[];
+    startTitle: string;
+    cta: string;
+    appliedTitle: string;
+    applied: string[];
+    referencesTitle: string;
+    references: {
+      id: string;
+      authors: string;
+      year: string;
+      title: string;
+      source: string;
+      url?: string;
+      note?: string;
+    }[];
+  };
+  gridSpacing: {
+    theory: string;
+    lead: string;
+    p1: string;
+    p2: string;
+    rulesTitle: string;
+    rules: string[];
+    appliedTitle: string;
+    applied: string[];
+    demo: {
+      title: string;
+      hint: string;
+      badLabel: string;
+      goodLabel: string;
+      notesBad: string[];
+      notesGood: string[];
+      copy: { box: string };
+    };
+    referencesTitle: string;
+    references: {
+      id: string;
+      authors: string;
+      year: string;
+      title: string;
+      source: string;
+      url?: string;
+      note?: string;
+    }[];
+  };
+  iconsLesson: {
+    theory: string;
+    lead: string;
+    p1: string;
+    p2: string;
+    rulesTitle: string;
+    rules: string[];
+    appliedTitle: string;
+    applied: string[];
+    demo: {
+      title: string;
+      hint: string;
+      badLabel: string;
+      goodLabel: string;
+      notesBad: string[];
+      notesGood: string[];
+      copy: { nav: string; action: string };
+    };
+    referencesTitle: string;
+    references: {
+      id: string;
+      authors: string;
+      year: string;
+      title: string;
+      source: string;
+      url?: string;
+      note?: string;
+    }[];
+  };
+  formsInputs: {
+    theory: string;
+    lead: string;
+    p1: string;
+    p2: string;
+    rulesTitle: string;
+    rules: string[];
+    appliedTitle: string;
+    applied: string[];
+    demo: {
+      title: string;
+      hint: string;
+      badLabel: string;
+      goodLabel: string;
+      notesBad: string[];
+      notesGood: string[];
+      copy: {
+        email: string;
+        password: string;
+        placeholderOnly: string;
+        error: string;
+        hint: string;
+        submit: string;
+      };
+    };
+    referencesTitle: string;
+    references: {
+      id: string;
+      authors: string;
+      year: string;
+      title: string;
+      source: string;
+      url?: string;
+      note?: string;
+    }[];
+  };
+  heroSections: {
+    theory: string;
+    lead: string;
+    p1: string;
+    p2: string;
+    rulesTitle: string;
+    rules: string[];
+    appliedTitle: string;
+    applied: string[];
+    demo: {
+      title: string;
+      hint: string;
+      badLabel: string;
+      goodLabel: string;
+      notesBad: string[];
+      notesGood: string[];
+      copy: {
+        eyebrow: string;
+        title: string;
+        body: string;
+        primary: string;
+        secondary: string;
+        noiseA: string;
+        noiseB: string;
+        noiseC: string;
+      };
+    };
+    referencesTitle: string;
+    references: {
+      id: string;
+      authors: string;
+      year: string;
+      title: string;
+      source: string;
+      url?: string;
+      note?: string;
+    }[];
+  };
+  gestaltLesson: {
+    theory: string;
+    lead: string;
+    p1: string;
+    p2: string;
+    rulesTitle: string;
+    rules: string[];
+    appliedTitle: string;
+    applied: string[];
+    demo: {
+      title: string;
+      hint: string;
+      badLabel: string;
+      goodLabel: string;
+      notesBad: string[];
+      notesGood: string[];
+      copy: { groupA: string; groupB: string; item: string };
+    };
+    referencesTitle: string;
+    references: {
+      id: string;
+      authors: string;
+      year: string;
+      title: string;
+      source: string;
+      url?: string;
+      note?: string;
+    }[];
+  };
+  refinementLesson: {
+    theory: string;
+    lead: string;
+    p1: string;
+    p2: string;
+    rulesTitle: string;
+    rules: string[];
+    appliedTitle: string;
+    applied: string[];
+    demo: {
+      title: string;
+      hint: string;
+      badLabel: string;
+      goodLabel: string;
+      notesBad: string[];
+      notesGood: string[];
+      checklistTitle: string;
+      items: string[];
+    };
+    referencesTitle: string;
+    references: {
+      id: string;
+      authors: string;
+      year: string;
+      title: string;
+      source: string;
+      url?: string;
+      note?: string;
+    }[];
   };
 };

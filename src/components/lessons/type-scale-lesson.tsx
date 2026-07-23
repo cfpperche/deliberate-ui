@@ -11,6 +11,7 @@ import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import type { LocalizedLesson } from "@/content/lessons";
 import type { Dictionary } from "@/i18n/dictionaries/types";
+import type { Locale } from "@/i18n/config";
 
 /**
  * Lesson 1.2 — Type scale.
@@ -19,9 +20,11 @@ import type { Dictionary } from "@/i18n/dictionaries/types";
 export function TypeScaleLesson({
   lesson,
   dict,
+  locale: _locale,
 }: {
   lesson: LocalizedLesson;
   dict: Dictionary;
+  locale: Locale;
 }) {
   const t = dict.typeScale;
 
