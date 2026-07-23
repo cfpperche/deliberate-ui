@@ -57,7 +57,7 @@ export const lessonDefinitions: LessonDefinition[] = [
     moduleKey: "components",
     moduleIndex: 3,
     lessonIndex: "3.1",
-    status: "planned",
+    status: "ready",
   },
   {
     slug: "grid-spacing",

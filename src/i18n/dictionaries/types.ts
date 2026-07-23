@@ -144,6 +144,51 @@ export type Dictionary = {
       note?: string;
     }[];
   };
+  buttonsActions: {
+    theory: string;
+    lead: string;
+    p1: string;
+    p2: string;
+    rulesTitle: string;
+    rules: string[];
+    appliedTitle: string;
+    applied: string[];
+    demo: {
+      title: string;
+      hint: string;
+      badLabel: string;
+      goodLabel: string;
+      variantsTitle: string;
+      notesBad: string[];
+      notesGood: string[];
+      copy: {
+        primary: string;
+        secondary: string;
+        ghost: string;
+        destroy: string;
+        cancel: string;
+        save: string;
+        vagueA: string;
+        vagueB: string;
+        vagueC: string;
+        disabled: string;
+        variantPrimary: string;
+        variantSecondary: string;
+        variantGhost: string;
+        variantDisabled: string;
+      };
+    };
+    referencesTitle: string;
+    references: {
+      id: string;
+      authors: string;
+      year: string;
+      title: string;
+      source: string;
+      url?: string;
+      note?: string;
+    }[];
+  };
   colorContrast: {
     theory: string;
     lead: string;

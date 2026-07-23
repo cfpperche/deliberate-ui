@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 /*
-  Deliberate UI — Design System v0.2
+  Deliberate UI — Design System v0.3
   Light theme only. Warm paper + deep ink.
-  Color roles (surface, accent, semantic) applied across product UI.
+  Color roles + button hierarchy (primary / secondary / ghost).
   This site applies the rules it teaches.
 */
 

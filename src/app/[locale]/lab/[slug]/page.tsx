@@ -4,6 +4,7 @@ import { getLesson, lessonDefinitions } from "@/content/lessons";
 import { TypeHierarchyLesson } from "@/components/lessons/type-hierarchy-lesson";
 import { TypeScaleLesson } from "@/components/lessons/type-scale-lesson";
 import { ColorContrastLesson } from "@/components/lessons/color-contrast-lesson";
+import { ButtonsActionsLesson } from "@/components/lessons/buttons-actions-lesson";
 import { isLocale, locales, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
 
@@ -16,6 +17,7 @@ const lessonComponents = {
   "type-hierarchy": TypeHierarchyLesson,
   "type-scale": TypeScaleLesson,
   "color-contrast": ColorContrastLesson,
+  "buttons-actions": ButtonsActionsLesson,
 } as const;
 
 export function generateStaticParams() {
