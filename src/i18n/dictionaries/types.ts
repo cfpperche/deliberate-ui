@@ -144,4 +144,42 @@ export type Dictionary = {
       note?: string;
     }[];
   };
+  colorContrast: {
+    theory: string;
+    lead: string;
+    p1: string;
+    p2: string;
+    rulesTitle: string;
+    rules: string[];
+    appliedTitle: string;
+    applied: string[];
+    demo: {
+      title: string;
+      hint: string;
+      badLabel: string;
+      goodLabel: string;
+      paletteTitle: string;
+      palette: { name: string; cssVar: string }[];
+      notesBad: string[];
+      notesGood: string[];
+      copy: {
+        cardTitle: string;
+        cardBody: string;
+        statusOk: string;
+        statusFail: string;
+        cta: string;
+        meta: string;
+      };
+    };
+    referencesTitle: string;
+    references: {
+      id: string;
+      authors: string;
+      year: string;
+      title: string;
+      source: string;
+      url?: string;
+      note?: string;
+    }[];
+  };
 };

@@ -50,7 +50,7 @@ export const lessonDefinitions: LessonDefinition[] = [
     moduleKey: "color",
     moduleIndex: 2,
     lessonIndex: "2.1",
-    status: "planned",
+    status: "ready",
   },
   {
     slug: "buttons-actions",

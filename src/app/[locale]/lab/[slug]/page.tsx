@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getLesson, lessonDefinitions } from "@/content/lessons";
 import { TypeHierarchyLesson } from "@/components/lessons/type-hierarchy-lesson";
 import { TypeScaleLesson } from "@/components/lessons/type-scale-lesson";
+import { ColorContrastLesson } from "@/components/lessons/color-contrast-lesson";
 import { isLocale, locales, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
 
@@ -14,6 +15,7 @@ type PageProps = {
 const lessonComponents = {
   "type-hierarchy": TypeHierarchyLesson,
   "type-scale": TypeScaleLesson,
+  "color-contrast": ColorContrastLesson,
 } as const;
 
 export function generateStaticParams() {
