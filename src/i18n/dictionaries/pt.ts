@@ -159,6 +159,37 @@ const pt: Dictionary = {
       metricHelp: "Compare coortes. Exporte CSV. Compartilhe com o time.",
       cta: "Abrir relatório",
     },
+    wireframe: {
+      title: "Wireframe responsivo",
+      hint: "Mesmo layout, duas escolhas de hierarquia. Alterne desktop, tablet e mobile.",
+      desktop: "Desktop",
+      tablet: "Tablet",
+      mobile: "Mobile",
+      screenTitle: "Wireframe de landing",
+      screenSubtitle: "Marketing de produto",
+      heroTitle: "Entregue interfaces mais claras",
+      heroBody:
+        "Guie o olhar com níveis. Mantenha papéis distintos em cada breakpoint.",
+      cta: "Começar grátis",
+      nav: ["Produto", "Preços", "Docs"],
+      cards: [
+        { label: "Recurso A", lines: 3 },
+        { label: "Recurso B", lines: 3 },
+        { label: "Recurso C", lines: 2 },
+      ],
+      notesBad: [
+        "Todo o texto usa um tamanho e um peso.",
+        "A ação principal parece um link da nav.",
+        "Cards e hero competem com a mesma ênfase.",
+        "O breakpoint muda a largura, mas a hierarquia continua plana.",
+      ],
+      notesGood: [
+        "O título é o texto mais forte do hero.",
+        "A nav é secundária; o CTA é primário.",
+        "Rótulos dos cards são pequenos; linhas de corpo são mais suaves.",
+        "A hierarquia se mantém em desktop, tablet e mobile.",
+      ],
+    },
   },
 };
 

@@ -157,6 +157,36 @@ const en: Dictionary = {
       metricHelp: "Compare cohorts. Export CSV. Share with your team.",
       cta: "Open report",
     },
+    wireframe: {
+      title: "Responsive wireframe",
+      hint: "Same layout, two hierarchy choices. Switch desktop, tablet, and mobile.",
+      desktop: "Desktop",
+      tablet: "Tablet",
+      mobile: "Mobile",
+      screenTitle: "Landing wireframe",
+      screenSubtitle: "Product marketing",
+      heroTitle: "Ship clearer interfaces",
+      heroBody: "Guide the eye with levels. Keep roles distinct on every breakpoint.",
+      cta: "Start free",
+      nav: ["Product", "Pricing", "Docs"],
+      cards: [
+        { label: "Feature A", lines: 3 },
+        { label: "Feature B", lines: 3 },
+        { label: "Feature C", lines: 2 },
+      ],
+      notesBad: [
+        "All text uses one size and one weight.",
+        "Primary action looks like a nav link.",
+        "Cards and hero compete with equal emphasis.",
+        "Breakpoints change width, but hierarchy stays flat.",
+      ],
+      notesGood: [
+        "Title is the strongest text in the hero.",
+        "Nav is secondary; CTA is primary.",
+        "Card labels are small; body lines are quieter.",
+        "Hierarchy holds on desktop, tablet, and mobile.",
+      ],
+    },
   },
 };
 

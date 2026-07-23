@@ -93,5 +93,21 @@ export type Dictionary = {
       metricHelp: string;
       cta: string;
     };
+    wireframe: {
+      title: string;
+      hint: string;
+      desktop: string;
+      tablet: string;
+      mobile: string;
+      screenTitle: string;
+      screenSubtitle: string;
+      heroTitle: string;
+      heroBody: string;
+      cta: string;
+      nav: string[];
+      cards: { label: string; lines: number }[];
+      notesBad: string[];
+      notesGood: string[];
+    };
   };
 };

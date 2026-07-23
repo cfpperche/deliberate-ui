@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getLesson, lessonDefinitions } from "@/content/lessons";
 import { LessonShell } from "@/components/lab/lesson-shell";
 import { TypeHierarchyDemo } from "@/components/lab/type-hierarchy-demo";
+import { HierarchyWireframe } from "@/components/lab/hierarchy-wireframe";
 import { TypeScaleChart } from "@/components/lab/type-scale-chart";
 import { HierarchyDiagram } from "@/components/lab/hierarchy-diagram";
 import { RulesList } from "@/components/lab/rules-list";
@@ -98,6 +99,31 @@ export default async function LessonPage({ params }: PageProps) {
               demo={t.demo}
             />
           </section>
+
+          <HierarchyWireframe
+            sectionTitle={t.wireframe.title}
+            sectionHint={t.wireframe.hint}
+            badLabel={t.weak}
+            goodLabel={t.clear}
+            badgeBad={dict.common.bad}
+            badgeGood={dict.common.good}
+            viewportLabels={{
+              desktop: t.wireframe.desktop,
+              tablet: t.wireframe.tablet,
+              mobile: t.wireframe.mobile,
+            }}
+            copy={{
+              title: t.wireframe.screenTitle,
+              subtitle: t.wireframe.screenSubtitle,
+              nav: t.wireframe.nav,
+              heroTitle: t.wireframe.heroTitle,
+              heroBody: t.wireframe.heroBody,
+              cta: t.wireframe.cta,
+              cards: t.wireframe.cards,
+              notesBad: t.wireframe.notesBad,
+              notesGood: t.wireframe.notesGood,
+            }}
+          />
 
           <section>
             <Card className="bg-accent-soft/40">
