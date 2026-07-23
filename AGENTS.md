@@ -53,15 +53,50 @@ This is a **dogfooding** product. Techniques taught in a lesson must land as reu
 | Diagrams | `mermaid` (and `@xyflow/react` when node graphs are needed) |
 | Package manager | `pnpm` |
 
-### Allowed libraries to prefer
+### Allowed libraries (use with restraint)
+
+These tools are **available**, not mandatory on every page:
 
 - `motion` — micro-interactions, enter/exit, before/after demos
-- `recharts` — scales, comparisons, simple analytics illustrations
-- `mermaid` — flowcharts, hierarchy, process diagrams
-- `@xyflow/react` — interactive node diagrams
+- `recharts` — scales, comparisons, quantitative illustrations
+- `mermaid` — flowcharts, process / structure diagrams
+- `@xyflow/react` — interactive node graphs when the topic needs them
 - `lucide-react` — icons only
+- SVG / custom illustrations — when a static drawing teaches better than text alone
 
 Add a new dependency only if no allowed library fits, and document it in the PR/commit message.
+
+## Visual media: dose, do not decorate
+
+Charts, SVG, animations, diagrams, and motion are **teaching aids**, not default decoration.
+
+**Principle:** Use a visual only when it clearly helps the learner understand **this lesson’s idea**. If text, a simple Bad/Good UI example, or a short list already explains it, **skip** the extra graphic.
+
+| Use a visual when… | Avoid a visual when… |
+|--------------------|----------------------|
+| It shows structure, sequence, scale, or contrast that words alone obscure | It only restates what the paragraph already said |
+| The topic is inherently spatial or comparative (layout, hierarchy, color ratio) | You would add it “because the stack has Recharts/Mermaid/Motion” |
+| One focused figure replaces a long explanation | A second or third figure piles on the same point |
+| Interaction changes the insight (e.g. viewport switch on a wireframe) | Animation is cosmetic and does not change understanding |
+
+### Practical limits
+
+- Prefer **one primary demo** per lesson (e.g. wireframe Bad/Good). Add a second visual only if it answers a **different** question.
+- Do **not** put chart + diagram + animation on the same screen by default.
+- Match the medium to the theme:
+  - **Hierarchy / layout** → wireframe or real UI compare (not a random bar chart)
+  - **Type scale / size ratios** → scale chart or specimen strip (lesson 1.2 territory)
+  - **Process / reading order** → simple diagram only if the flow is the point
+  - **Color / contrast** → swatches or side-by-side UI (not motion for its own sake)
+- Motion: short, purposeful (state change, enter of compare panels). No looping or ornamental motion.
+- If unsure, ship **text + one clear example** first. Add a graphic only when the lesson still feels hard to grasp.
+
+### Anti-patterns
+
+- Filling empty sidebar space with a chart that belongs to another lesson
+- Mermaid/flowchart for ideas that are not flows
+- Multiple libraries on one page without a comprehension reason
+- “Showcase stack” demos that do not teach the current rule
 
 ## Component architecture (required)
 
@@ -199,6 +234,7 @@ pnpm start
 - [ ] `pnpm lint` and `pnpm build` pass
 - [ ] UI is componentized (`ui` / `lab` / `lessons`); route files stay thin
 - [ ] New technique is reflected in shared tokens or `ui/` primitives when applicable
+- [ ] Visuals (chart/diagram/motion/SVG) are justified by comprehension of **this** theme — not stacked by default
 - [ ] AppliedPanel lists what the site now uses
 - [ ] ≥ 3 real bibliographic references
 - [ ] EN + PT dictionary keys updated together

@@ -1,7 +1,5 @@
 import { LessonShell } from "@/components/lab/lesson-shell";
 import { HierarchyWireframe } from "@/components/lab/hierarchy-wireframe";
-import { TypeScaleChart } from "@/components/lab/type-scale-chart";
-import { HierarchyDiagram } from "@/components/lab/hierarchy-diagram";
 import { RulesList } from "@/components/lab/rules-list";
 import { References } from "@/components/lab/references";
 import { AppliedPanel } from "@/components/lab/applied-panel";
@@ -13,7 +11,8 @@ import type { Dictionary } from "@/i18n/dictionaries/types";
 
 /**
  * Full composition for lesson 1.1.
- * Page route only resolves locale + slug; lessons own their UI tree.
+ * Primary demo: responsive wireframe Bad/Good (hierarchy is visual).
+ * No scale chart here — that belongs to type-scale (1.2).
  */
 export function TypeHierarchyLesson({
   lesson,
@@ -31,7 +30,7 @@ export function TypeHierarchyLesson({
     >
       <div className="space-y-8">
         <LessonSection>
-          <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
             <div className="space-y-4">
               <Heading level={2}>{t.theory}</Heading>
               <div className="space-y-3">
@@ -43,23 +42,8 @@ export function TypeHierarchyLesson({
                   {t.p2}
                 </Text>
               </div>
-              <RulesList title={t.rulesTitle} rules={[...t.rules]} />
             </div>
-            <div className="space-y-4">
-              <Heading level={2}>{t.tokensTitle}</Heading>
-              <TypeScaleChart
-                title={t.chartTitle}
-                subtitle={t.chartSubtitle}
-                sizeLabel={t.chartSize}
-              />
-              <HierarchyDiagram
-                title={t.diagramTitle}
-                subtitle={t.diagramSubtitle}
-                loadingLabel={dict.common.loadingDiagram}
-                errorLabel={dict.common.diagramError}
-                nodes={t.diagramNodes}
-              />
-            </div>
+            <RulesList title={t.rulesTitle} rules={[...t.rules]} />
           </div>
         </LessonSection>
 
