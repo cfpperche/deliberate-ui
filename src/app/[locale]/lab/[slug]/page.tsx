@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getLesson, lessonDefinitions } from "@/content/lessons";
 import { TypeHierarchyLesson } from "@/components/lessons/type-hierarchy-lesson";
+import { TypeScaleLesson } from "@/components/lessons/type-scale-lesson";
 import { isLocale, locales, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
 
@@ -12,6 +13,7 @@ type PageProps = {
 /** Map ready lesson slugs → page compositions (keep routes thin). */
 const lessonComponents = {
   "type-hierarchy": TypeHierarchyLesson,
+  "type-scale": TypeScaleLesson,
 } as const;
 
 export function generateStaticParams() {

@@ -43,7 +43,7 @@ export const lessonDefinitions: LessonDefinition[] = [
     moduleKey: "typography",
     moduleIndex: 1,
     lessonIndex: "1.2",
-    status: "planned",
+    status: "ready",
   },
   {
     slug: "color-contrast",

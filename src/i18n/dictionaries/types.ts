@@ -111,4 +111,37 @@ export type Dictionary = {
       note?: string;
     }[];
   };
+  typeScale: {
+    theory: string;
+    lead: string;
+    p1: string;
+    p2: string;
+    rulesTitle: string;
+    rules: string[];
+    appliedTitle: string;
+    applied: string[];
+    specimen: {
+      title: string;
+      hint: string;
+      badLabel: string;
+      goodLabel: string;
+      tokenColumn: string;
+      roleColumn: string;
+      sizeColumn: string;
+      notesBad: string[];
+      notesGood: string[];
+      steps: { token: string; px: number; role: string; sample: string }[];
+      badSteps: { token: string; px: number; role: string; sample: string }[];
+    };
+    referencesTitle: string;
+    references: {
+      id: string;
+      authors: string;
+      year: string;
+      title: string;
+      source: string;
+      url?: string;
+      note?: string;
+    }[];
+  };
 };
