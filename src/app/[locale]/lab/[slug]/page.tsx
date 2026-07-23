@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getLesson, lessonDefinitions } from "@/content/lessons";
 import { LessonShell } from "@/components/lab/lesson-shell";
-import { TypeHierarchyDemo } from "@/components/lab/type-hierarchy-demo";
 import { HierarchyWireframe } from "@/components/lab/hierarchy-wireframe";
 import { TypeScaleChart } from "@/components/lab/type-scale-chart";
 import { HierarchyDiagram } from "@/components/lab/hierarchy-diagram";
