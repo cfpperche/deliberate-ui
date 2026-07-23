@@ -68,8 +68,6 @@ export type Dictionary = {
     rulesTitle: string;
     rules: string[];
     tokensTitle: string;
-    liveExample: string;
-    compareHint: string;
     appliedTitle: string;
     applied: string[];
     chartTitle: string;
@@ -86,13 +84,6 @@ export type Dictionary = {
     };
     weak: string;
     clear: string;
-    demo: {
-      productTitle: string;
-      productBody: string;
-      metricLabel: string;
-      metricHelp: string;
-      cta: string;
-    };
     wireframe: {
       title: string;
       hint: string;

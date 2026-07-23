@@ -128,8 +128,6 @@ const pt: Dictionary = {
       "Use cor muted só para informação secundária.",
     ],
     tokensTitle: "Tokens em uso",
-    liveExample: "Exemplo ao vivo",
-    compareHint: "Compare hierarquia fraca vs clara",
     appliedTitle: "Aplicado neste site",
     applied: [
       "O título da página usa serif, tamanho grande e tracking apertado.",
@@ -152,13 +150,6 @@ const pt: Dictionary = {
     },
     weak: "Hierarquia fraca",
     clear: "Hierarquia clara",
-    demo: {
-      productTitle: "Dashboard de analytics de produto",
-      productBody: "Acompanhe retenção, ativação e receita em um só lugar.",
-      metricLabel: "Usuários ativos semanais",
-      metricHelp: "Compare coortes. Exporte CSV. Compartilhe com o time.",
-      cta: "Abrir relatório",
-    },
     wireframe: {
       title: "Wireframe responsivo",
       hint: "Mesmo layout, duas escolhas de hierarquia. Alterne desktop, tablet e mobile.",

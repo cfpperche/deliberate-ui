@@ -83,22 +83,6 @@ export default async function LessonPage({ params }: PageProps) {
             </div>
           </section>
 
-          <section className="space-y-4">
-            <div className="flex items-end justify-between gap-3">
-              <h2 className="font-serif text-lg font-semibold tracking-tight">
-                {t.liveExample}
-              </h2>
-              <p className="text-xs text-muted-foreground">{t.compareHint}</p>
-            </div>
-            <TypeHierarchyDemo
-              weakLabel={t.weak}
-              clearLabel={t.clear}
-              badLabel={dict.common.bad}
-              goodLabel={dict.common.good}
-              demo={t.demo}
-            />
-          </section>
-
           <HierarchyWireframe
             sectionTitle={t.wireframe.title}
             sectionHint={t.wireframe.hint}

@@ -127,8 +127,6 @@ const en: Dictionary = {
       "Use muted color only for secondary information.",
     ],
     tokensTitle: "Tokens in use",
-    liveExample: "Live example",
-    compareHint: "Compare weak vs clear hierarchy",
     appliedTitle: "Applied on this site",
     applied: [
       "Page title uses serif, large size, tight tracking.",
@@ -150,13 +148,6 @@ const en: Dictionary = {
     },
     weak: "Weak hierarchy",
     clear: "Clear hierarchy",
-    demo: {
-      productTitle: "Product analytics dashboard",
-      productBody: "Track retention, activation, and revenue in one place.",
-      metricLabel: "Weekly active users",
-      metricHelp: "Compare cohorts. Export CSV. Share with your team.",
-      cta: "Open report",
-    },
     wireframe: {
       title: "Responsive wireframe",
       hint: "Same layout, two hierarchy choices. Switch desktop, tablet, and mobile.",
