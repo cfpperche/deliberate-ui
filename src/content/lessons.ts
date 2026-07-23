@@ -1,132 +1,133 @@
+import type { Dictionary } from "@/i18n/dictionaries/types";
+
 export type LessonStatus = "ready" | "planned";
 
-export type Lesson = {
-  slug: string;
-  module: string;
+export type ModuleKey = keyof Dictionary["modules"];
+export type LessonSlug = keyof Dictionary["lessons"];
+
+export type LessonDefinition = {
+  slug: LessonSlug;
+  moduleKey: ModuleKey;
   moduleIndex: number;
   lessonIndex: string;
-  title: string;
-  summary: string;
   status: LessonStatus;
 };
 
+export type LocalizedLesson = LessonDefinition & {
+  module: string;
+  title: string;
+  summary: string;
+};
+
 /**
- * Simulated curriculum index.
- * This is original instructional material, not a copy of any paid course.
+ * Structural curriculum index (locale-independent).
+ * Titles and summaries live in i18n dictionaries.
  */
-export const lessons: Lesson[] = [
+export const lessonDefinitions: LessonDefinition[] = [
   {
     slug: "welcome",
-    module: "Welcome",
+    moduleKey: "welcome",
     moduleIndex: 0,
     lessonIndex: "0.1",
-    title: "How to use this lab",
-    summary: "Read the rules. Inspect the design system. Practice with intent.",
     status: "planned",
   },
   {
     slug: "type-hierarchy",
-    module: "Typography",
+    moduleKey: "typography",
     moduleIndex: 1,
     lessonIndex: "1.1",
-    title: "Type hierarchy",
-    summary: "Use clear levels. Guide the eye. Keep roles distinct.",
     status: "ready",
   },
   {
     slug: "type-scale",
-    module: "Typography",
+    moduleKey: "typography",
     moduleIndex: 1,
     lessonIndex: "1.2",
-    title: "Type scale",
-    summary: "Define a scale. Reuse tokens. Avoid random sizes.",
     status: "planned",
   },
   {
     slug: "color-contrast",
-    module: "Color",
+    moduleKey: "color",
     moduleIndex: 2,
     lessonIndex: "2.1",
-    title: "Color and contrast",
-    summary: "Meet contrast rules. Limit the palette. Preserve meaning.",
     status: "planned",
   },
   {
     slug: "buttons-actions",
-    module: "Components",
+    moduleKey: "components",
     moduleIndex: 3,
     lessonIndex: "3.1",
-    title: "Buttons and actions",
-    summary: "Show hierarchy. Define states. Make targets easy to hit.",
     status: "planned",
   },
   {
     slug: "grid-spacing",
-    module: "Layout",
+    moduleKey: "layout",
     moduleIndex: 4,
     lessonIndex: "4.1",
-    title: "Grid and spacing",
-    summary: "Use an 8pt rhythm. Align edges. Control white space.",
     status: "planned",
   },
   {
     slug: "icons",
-    module: "Components",
+    moduleKey: "components",
     moduleIndex: 5,
     lessonIndex: "5.1",
-    title: "Icons",
-    summary: "Keep weight consistent. Align to a box. Prefer familiar symbols.",
     status: "planned",
   },
   {
     slug: "forms-inputs",
-    module: "Components",
+    moduleKey: "components",
     moduleIndex: 6,
     lessonIndex: "6.1",
-    title: "Forms and inputs",
-    summary: "Label clearly. Show state. Reduce scan cost.",
     status: "planned",
   },
   {
     slug: "hero-sections",
-    module: "Patterns",
+    moduleKey: "patterns",
     moduleIndex: 7,
     lessonIndex: "7.1",
-    title: "Hero sections",
-    summary: "Lead with one message. Support with hierarchy and space.",
     status: "planned",
   },
   {
     slug: "gestalt",
-    module: "Principles",
+    moduleKey: "principles",
     moduleIndex: 8,
     lessonIndex: "8.1",
-    title: "Gestalt principles",
-    summary: "Group by proximity and similarity. Reduce visual noise.",
     status: "planned",
   },
   {
     slug: "refinement",
-    module: "Practice",
+    moduleKey: "practice",
     moduleIndex: 9,
     lessonIndex: "9.1",
-    title: "Refinement checklist",
-    summary: "Review contrast, alignment, hierarchy, and states.",
     status: "planned",
   },
 ];
 
-export function getLesson(slug: string): Lesson | undefined {
-  return lessons.find((lesson) => lesson.slug === slug);
+export function localizeLessons(dict: Dictionary): LocalizedLesson[] {
+  return lessonDefinitions.map((lesson) => ({
+    ...lesson,
+    module: dict.modules[lesson.moduleKey],
+    title: dict.lessons[lesson.slug].title,
+    summary: dict.lessons[lesson.slug].summary,
+  }));
 }
 
-export function getReadyLessons(): Lesson[] {
-  return lessons.filter((lesson) => lesson.status === "ready");
+export function getLesson(
+  dict: Dictionary,
+  slug: string,
+): LocalizedLesson | undefined {
+  return localizeLessons(dict).find((lesson) => lesson.slug === slug);
 }
 
-export function groupLessonsByModule(): { module: string; items: Lesson[] }[] {
-  const map = new Map<string, Lesson[]>();
-  for (const lesson of lessons) {
+export function getReadyLessons(dict: Dictionary): LocalizedLesson[] {
+  return localizeLessons(dict).filter((lesson) => lesson.status === "ready");
+}
+
+export function groupLessonsByModule(
+  dict: Dictionary,
+): { module: string; items: LocalizedLesson[] }[] {
+  const map = new Map<string, LocalizedLesson[]>();
+  for (const lesson of localizeLessons(dict)) {
     const list = map.get(lesson.module) ?? [];
     list.push(lesson);
     map.set(lesson.module, list);

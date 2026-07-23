@@ -4,11 +4,24 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BookOpen, CircleDot } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { groupLessonsByModule, type Lesson } from "@/content/lessons";
+import {
+  groupLessonsByModule,
+  type LocalizedLesson,
+} from "@/content/lessons";
+import type { Dictionary } from "@/i18n/dictionaries/types";
+import type { Locale } from "@/i18n/config";
+import { localePath } from "@/i18n/paths";
+import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 
-export function LabSidebar() {
+export function LabSidebar({
+  locale,
+  dict,
+}: {
+  locale: Locale;
+  dict: Dictionary;
+}) {
   const pathname = usePathname();
-  const groups = groupLessonsByModule();
+  const groups = groupLessonsByModule(dict);
 
   return (
     <aside className="fixed inset-y-0 left-0 z-30 hidden w-[var(--sidebar-width)] flex-col border-r border-border bg-surface md:flex">
@@ -16,22 +29,26 @@ export function LabSidebar() {
         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent text-accent-foreground">
           <BookOpen className="h-4 w-4" aria-hidden />
         </div>
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <Link
-            href="/"
+            href={localePath(locale)}
             className="block truncate text-sm font-semibold tracking-tight text-foreground"
           >
-            Deliberate UI
+            {dict.common.brand}
           </Link>
           <p className="truncate text-xs text-muted-foreground">
-            Simulated learning lab
+            {dict.lab.tagline}
           </p>
         </div>
       </div>
 
+      <div className="border-b border-border px-4 py-3">
+        <LanguageSwitcher locale={locale} className="w-full justify-center" />
+      </div>
+
       <nav
         className="flex-1 overflow-y-auto px-3 py-4"
-        aria-label="Lesson index"
+        aria-label={dict.lab.lessonIndexAria}
       >
         {groups.map((group) => (
           <div key={group.module} className="mb-5">
@@ -42,8 +59,9 @@ export function LabSidebar() {
               {group.items.map((lesson) => (
                 <LessonNavItem
                   key={lesson.slug}
+                  locale={locale}
                   lesson={lesson}
-                  active={pathname === `/lab/${lesson.slug}`}
+                  active={pathname === localePath(locale, `/lab/${lesson.slug}`)}
                 />
               ))}
             </ul>
@@ -53,7 +71,7 @@ export function LabSidebar() {
 
       <div className="border-t border-border px-4 py-3">
         <p className="text-xs leading-relaxed text-muted-foreground">
-          This page applies the design rules it teaches.
+          {dict.lab.appliesRules}
         </p>
       </div>
     </aside>
@@ -61,10 +79,12 @@ export function LabSidebar() {
 }
 
 function LessonNavItem({
+  locale,
   lesson,
   active,
 }: {
-  lesson: Lesson;
+  locale: Locale;
+  lesson: LocalizedLesson;
   active: boolean;
 }) {
   const ready = lesson.status === "ready";
@@ -82,7 +102,11 @@ function LessonNavItem({
       <CircleDot
         className={cn(
           "mt-0.5 h-3.5 w-3.5 shrink-0",
-          active ? "text-accent" : ready ? "text-muted-foreground" : "text-border",
+          active
+            ? "text-accent"
+            : ready
+              ? "text-muted-foreground"
+              : "text-border",
         )}
         aria-hidden
       />
@@ -114,7 +138,7 @@ function LessonNavItem({
 
   return (
     <li>
-      <Link href={`/lab/${lesson.slug}`} className={className}>
+      <Link href={localePath(locale, `/lab/${lesson.slug}`)} className={className}>
         {content}
       </Link>
     </li>

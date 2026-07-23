@@ -21,6 +21,13 @@ This is **not** a full course product. It is a multi-page site that *simulates* 
 - lucide-react, motion, recharts, mermaid, @xyflow/react
 - pnpm
 
+## Languages
+
+- English: `/en`
+- Português: `/pt`
+
+Root `/` redirects to the preferred locale (cookie or `Accept-Language`).
+
 ## Getting started
 
 ```bash

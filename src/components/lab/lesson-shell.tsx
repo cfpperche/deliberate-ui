@@ -1,11 +1,13 @@
 import { Badge } from "@/components/ui/badge";
-import type { Lesson } from "@/content/lessons";
+import type { LocalizedLesson } from "@/content/lessons";
 
 export function LessonShell({
   lesson,
+  designSystemLabel,
   children,
 }: {
-  lesson: Lesson;
+  lesson: LocalizedLesson;
+  designSystemLabel: string;
   children: React.ReactNode;
 }) {
   return (
@@ -15,15 +17,21 @@ export function LessonShell({
           <Badge variant="accent">
             {lesson.lessonIndex} · {lesson.module}
           </Badge>
-          <Badge variant="muted">Design system applied</Badge>
+          <Badge variant="muted">{designSystemLabel}</Badge>
         </div>
         <h1
           className="font-serif text-3xl font-semibold tracking-tight text-foreground md:text-[2.25rem]"
-          style={{ lineHeight: "var(--leading-tight)", letterSpacing: "-0.02em" }}
+          style={{
+            lineHeight: "var(--leading-tight)",
+            letterSpacing: "-0.02em",
+          }}
         >
           {lesson.title}
         </h1>
-        <p className="mt-3 max-w-xl text-md text-muted-foreground" style={{ lineHeight: "var(--leading-relaxed)" }}>
+        <p
+          className="mt-3 max-w-xl text-md text-muted-foreground"
+          style={{ lineHeight: "var(--leading-relaxed)" }}
+        >
           {lesson.summary}
         </p>
       </header>

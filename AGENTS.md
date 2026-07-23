@@ -66,20 +66,32 @@ For rules, checklists, and demo labels:
 
 Full guide: `docs/STE100.md`.
 
+## Internationalization (i18n)
+
+- Locales: `en`, `pt` (default `en`)
+- Routes: `/[locale]/...` e.g. `/en/lab/type-hierarchy`, `/pt/lab/type-hierarchy`
+- Dictionaries: `src/i18n/dictionaries/{en,pt}.ts`
+- Middleware: `src/middleware.ts` redirects `/` → preferred locale
+- Structural lesson data (slug, status) in `src/content/lessons.ts`; copy in dictionaries
+- When adding UI copy, add keys to **both** `en` and `pt` dictionaries
+- Language switcher: `src/components/i18n/language-switcher.tsx`
+- STE100 applies to technical rules in **both** languages (short, active, unambiguous)
+
 ## Project map
 
 ```
 src/
-  app/                 # routes (home, /lab/[slug])
+  app/[locale]/        # localized routes (home, lab/[slug])
+  middleware.ts        # locale redirect + cookie
+  i18n/                # config + dictionaries (en, pt)
   components/
     lab/               # lesson chrome + demos
+    i18n/              # language switcher
     ui/                # reusable primitives
-  content/lessons.ts   # curriculum index
+  content/lessons.ts   # structural curriculum index
   lib/utils.ts         # cn() helper
 docs/STE100.md
 AGENTS.md
-CLAUDE.md
-.codex/AGENTS.md
 ```
 
 ## How to add a lesson

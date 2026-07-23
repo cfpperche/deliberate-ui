@@ -3,18 +3,41 @@
 import { useEffect, useId, useState } from "react";
 import { Card, CardBody, CardHeader } from "@/components/ui/card";
 
-const diagram = `flowchart TD
-  H["Page title"] --> S["Section heading"]
-  S --> B["Body text"]
-  S --> L["Label / meta"]
-  B --> C["Caption / help"]
+type DiagramNodes = {
+  title: string;
+  section: string;
+  body: string;
+  label: string;
+  caption: string;
+};
+
+function buildDiagram(nodes: DiagramNodes) {
+  return `flowchart TD
+  H["${nodes.title}"] --> S["${nodes.section}"]
+  S --> B["${nodes.body}"]
+  S --> L["${nodes.label}"]
+  B --> C["${nodes.caption}"]
   L --> C
 `;
+}
 
-export function HierarchyDiagram() {
+export function HierarchyDiagram({
+  title,
+  subtitle,
+  loadingLabel,
+  errorLabel,
+  nodes,
+}: {
+  title: string;
+  subtitle: string;
+  loadingLabel: string;
+  errorLabel: string;
+  nodes: DiagramNodes;
+}) {
   const id = useId().replace(/:/g, "");
   const [svg, setSvg] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
+  const diagram = buildDiagram(nodes);
 
   useEffect(() => {
     let cancelled = false;
@@ -41,11 +64,17 @@ export function HierarchyDiagram() {
             fontFamily: "var(--font-sans), system-ui, sans-serif",
           },
         });
-        const { svg: rendered } = await mermaid.render(`hierarchy-${id}`, diagram);
-        if (!cancelled) setSvg(rendered);
+        const { svg: rendered } = await mermaid.render(
+          `hierarchy-${id}-${nodes.title.length}`,
+          diagram,
+        );
+        if (!cancelled) {
+          setError(null);
+          setSvg(rendered);
+        }
       } catch (e) {
         if (!cancelled) {
-          setError(e instanceof Error ? e.message : "Diagram failed to render");
+          setError(e instanceof Error ? e.message : errorLabel);
         }
       }
     }
@@ -54,16 +83,14 @@ export function HierarchyDiagram() {
     return () => {
       cancelled = true;
     };
-  }, [id]);
+  }, [diagram, errorLabel, id, nodes.title.length]);
 
   return (
     <Card>
       <CardHeader>
         <div>
-          <p className="text-sm font-medium text-foreground">Reading order</p>
-          <p className="text-xs text-muted-foreground">
-            Title leads. Section supports. Body explains. Labels orient.
-          </p>
+          <p className="text-sm font-medium text-foreground">{title}</p>
+          <p className="text-xs text-muted-foreground">{subtitle}</p>
         </div>
       </CardHeader>
       <CardBody>
@@ -75,7 +102,7 @@ export function HierarchyDiagram() {
             dangerouslySetInnerHTML={{ __html: svg }}
           />
         ) : (
-          <p className="text-sm text-muted-foreground">Loading diagram…</p>
+          <p className="text-sm text-muted-foreground">{loadingLabel}</p>
         )}
       </CardBody>
     </Card>

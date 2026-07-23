@@ -22,21 +22,31 @@ const data = [
   { token: "3xl", px: 36 },
 ];
 
-export function TypeScaleChart() {
+export function TypeScaleChart({
+  title,
+  subtitle,
+  sizeLabel,
+}: {
+  title: string;
+  subtitle: string;
+  sizeLabel: string;
+}) {
   return (
     <Card>
       <CardHeader>
         <div>
-          <p className="text-sm font-medium text-foreground">Type scale tokens</p>
-          <p className="text-xs text-muted-foreground">
-            Pixel sizes used by this site (Design System v0.1)
-          </p>
+          <p className="text-sm font-medium text-foreground">{title}</p>
+          <p className="text-xs text-muted-foreground">{subtitle}</p>
         </div>
       </CardHeader>
       <CardBody className="h-64 pt-2">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
-            <CartesianGrid stroke="var(--border)" strokeDasharray="3 3" vertical={false} />
+            <CartesianGrid
+              stroke="var(--border)"
+              strokeDasharray="3 3"
+              vertical={false}
+            />
             <XAxis
               dataKey="token"
               tick={{ fill: "var(--muted)", fontSize: 12 }}
@@ -59,9 +69,14 @@ export function TypeScaleChart() {
                 fontSize: 13,
                 color: "var(--foreground)",
               }}
-              formatter={(value) => [`${value}px`, "size"]}
+              formatter={(value) => [`${value}px`, sizeLabel]}
             />
-            <Bar dataKey="px" fill="var(--accent)" radius={[4, 4, 0, 0]} maxBarSize={36} />
+            <Bar
+              dataKey="px"
+              fill="var(--accent)"
+              radius={[4, 4, 0, 0]}
+              maxBarSize={36}
+            />
           </BarChart>
         </ResponsiveContainer>
       </CardBody>
