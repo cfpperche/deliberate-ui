@@ -181,6 +181,46 @@ const pt: Dictionary = {
         "A hierarquia se mantém em desktop, tablet e mobile.",
       ],
     },
+    referencesTitle: "Referências bibliográficas",
+    references: [
+      {
+        id: "lupton-thinking-type",
+        authors: "Lupton, E.",
+        year: "2010",
+        title:
+          "Thinking with Type: A Critical Guide for Designers, Writers, Editors, & Students",
+        source: "2. ed. New York: Princeton Architectural Press",
+        note: "Hierarquia tipográfica, escala e papéis de display vs texto corrido.",
+      },
+      {
+        id: "material-type-scale",
+        authors: "Google",
+        year: "2024",
+        title: "Material Design 3 — Typography scale",
+        source: "Documentação Material Design",
+        url: "https://m3.material.io/styles/typography/type-scale-tokens",
+        note: "Papéis práticos de tipo (display, headline, title, body, label) para sistemas de UI.",
+      },
+      {
+        id: "wcag-text",
+        authors: "W3C Web Accessibility Initiative (WAI)",
+        year: "2023",
+        title:
+          "Understanding Success Criterion 1.4.3: Contrast (Minimum) e critérios de texto relacionados",
+        source: "WCAG 2.2",
+        url: "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html",
+        note: "Hierarquia legível depende de contraste e tamanho, não só da fonte.",
+      },
+      {
+        id: "nielsen-scanning",
+        authors: "Nielsen, J.",
+        year: "2006",
+        title: "F-Shaped Pattern for Reading Web Content",
+        source: "Nielsen Norman Group",
+        url: "https://www.nngroup.com/articles/f-shaped-pattern-reading-web-content/",
+        note: "Usuários escaneiam primeiro; títulos e níveis fortes apoiam esse comportamento.",
+      },
+    ],
   },
 };
 

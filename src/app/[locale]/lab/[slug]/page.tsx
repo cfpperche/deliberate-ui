@@ -6,6 +6,7 @@ import { HierarchyWireframe } from "@/components/lab/hierarchy-wireframe";
 import { TypeScaleChart } from "@/components/lab/type-scale-chart";
 import { HierarchyDiagram } from "@/components/lab/hierarchy-diagram";
 import { RulesList } from "@/components/lab/rules-list";
+import { References } from "@/components/lab/references";
 import { Card, CardBody } from "@/components/ui/card";
 import { isLocale, locales, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
@@ -120,6 +121,8 @@ export default async function LessonPage({ params }: PageProps) {
               </CardBody>
             </Card>
           </section>
+
+          <References title={t.referencesTitle} items={t.references} />
         </div>
       </LessonShell>
     );

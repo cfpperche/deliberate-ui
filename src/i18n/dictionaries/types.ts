@@ -100,5 +100,15 @@ export type Dictionary = {
       notesBad: string[];
       notesGood: string[];
     };
+    referencesTitle: string;
+    references: {
+      id: string;
+      authors: string;
+      year: string;
+      title: string;
+      source: string;
+      url?: string;
+      note?: string;
+    }[];
   };
 };

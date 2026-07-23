@@ -66,6 +66,17 @@ For rules, checklists, and demo labels:
 
 Full guide: `docs/STE100.md`.
 
+## Bibliographic references (required)
+
+Every ready lesson page must include **at least 3 bibliographic references** related to the topic.
+
+- Component: `src/components/lab/references.tsx`
+- Copy lives in the lesson dictionary block: `referencesTitle` + `references[]`
+- Prefer durable sources: books, standards (W3C/WCAG), design-system docs, peer-reviewed or established research orgs (e.g. NN/g)
+- Format: Author(s). (Year). *Title*. Source. Optional URL + short note (STE100)
+- Notes and titles may be localized; author names and years stay consistent across locales
+- Do **not** invent citations; use real, checkable sources
+
 ## Internationalization (i18n)
 
 - Locales: `en`, `pt` (default `en`)
